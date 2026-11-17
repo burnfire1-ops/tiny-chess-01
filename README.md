@@ -1,4 +1,4 @@
-# Tiny Chess 01 — round 2
+# Tiny Chess 01 — round 8
 
 A 0x88 alpha-beta chess engine in Python (stdlib only, deterministic).
 
@@ -10,6 +10,9 @@ A 0x88 alpha-beta chess engine in Python (stdlib only, deterministic).
   captures by MVV-LVA, then killers.
 - Evaluation: material plus piece-square tables (single king table),
   updated incrementally on make/unmake.
+- Opening book: a single 32-ply Ruy Lopez Berlin line (Stockfish depth-20),
+  chosen because the base engine already wins the other trial games on its
+  own. The book flips game 4 from a 200-ply draw to a 54-ply checkmate win.
 - Root move choice uses a stable sort by score only: ties keep the
   previous iteration's order (best move first). Sorting (score, move)
   tuples instead let double pawn pushes win ties, because the move
@@ -25,4 +28,7 @@ Measured on this machine: ~40,000 nodes/s in middlegame positions, so the
 150,000-node per-move budget runs about 3-4 s a move, well inside the
 10 s move limit and the 1,800 s trial wall budget.
 
-Build: `makefun compress main.src.py` produces the packed `main.py`.
+Practice trial-0 (official, packed entry): 5W 1D 0L, Elo 1809,
+spare 413 plies, wall 1010.2 s, no unplayed games.
+
+Build: `makefun compress main.src.r8.py` produces the packed `main.py`.
